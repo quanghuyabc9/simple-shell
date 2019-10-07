@@ -46,13 +46,21 @@ int main(void)
         while(*line_ptr==' '|| *line_ptr=='\t')
             line_ptr++;
 
-
+        if(strstr(line_ptr, "exit"))
+        {
+            should_run=0;
+            continue;
+        }
         if(line_ptr[0]=='!' && line_ptr[1]=='!')
         {
             if(history_buffer==NULL)
-                printf("No commands in history.");
+            {
+                printf("No commands in history.\n");
+                continue;
+            }
             else
             {
+                printf("Previous Command: %s\n", history_buffer);
                 free(line);
                 line=(char*)malloc((MAX_LINE+1)*sizeof(char));
                 strcpy(line,history_buffer);
@@ -91,7 +99,7 @@ int main(void)
 
         int waiting_for_the_child = 1;
 
-        if(strlen(args[i-1])==1 && args[i-1] == '&')
+        if(strlen(args[i-1])==1 && args[i-1][0] == '&')
             waiting_for_the_child = 0;
 
         int i_modification = 0, o_modification = 0, io_pipe = 0;
@@ -105,19 +113,6 @@ int main(void)
             if(args[tmp][0]=='|')
                 io_pipe = 1;
         }
-
-        //char *filename = NULL;
-//
-//        if(!waiting_for_the_child)
-//        {
-//            filename=(char*)malloc(strlen(args[i-2])*sizeof(char));
-//            strcpy(filename, args[i-2]);
-//        }
-//        else
-//        {
-//            filename=(char*)malloc(strlen(args[i-1])*sizeof(char));
-//            strcpy(filename, args[i-1]);
-//        }
 
         pid_t pid = 0;
         pid = fork();
@@ -254,20 +249,30 @@ int main(void)
                     waitpid(-1, NULL, 0);
                 }
             }
-            else if(execvp(args[0],args))
+            else
             {
-                printf("INVALID COMMAND\n");
-                return 1;
+                if(!waiting_for_the_child)
+                {
+                    free(args[i-1]);
+                    args[i-1]= NULL;
+                }
+                if(execvp(args[0],args))
+                {
+                    printf("INVALID COMMAND\n");
+                    return 1;
+                }
             }
         }
         else
         {
             if(waiting_for_the_child)
             {
+                printf("Waiting for the child!!\n");
                 while(wait(NULL)!= pid);
             }
             else
             {
+                printf("The child process is running in the background!!\n");
                 printf("[1]%d\n",pid);
             }
         }
@@ -281,5 +286,4 @@ void setNULL(char** args)
     {
         args[i]=NULL;
     }
-
 }
