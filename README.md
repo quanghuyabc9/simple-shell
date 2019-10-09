@@ -9,16 +9,16 @@ Simple Shell on Linux
 
 2) Hướng dẫn chạy các lệnh cơ bản đã làm trong chương trình
 * Executing Command in a Child Process:
- * Trong osh> gõ lệnh VD: osh>ls -l
- * Nếu muốn tiến trình cha đợi tiến trình con thì thêm dấu & sau cùng câu lênh VD: osh>ls -l &
+  * Trong osh> gõ lệnh VD: osh>ls -l
+  * Nếu muốn tiến trình cha đợi tiến trình con thì thêm dấu & sau cùng câu lênh VD: osh>ls -l &
 * Creating a History Feature:
- * Trong osh> gõ lệnh !! để gọi lại lịch sử, Nếu trong lịch sử không có command nào thì chương trình sẽ trả về “No commands in history.”
+  * Trong osh> gõ lệnh !! để gọi lại lịch sử, Nếu trong lịch sử không có command nào thì chương trình sẽ trả về “No commands in history.”
 VD: osh> !!
 * Redirecting Input and Output:
- * osh>ls > out.txt
- * osh>sort < in.txt
+  * osh>ls > out.txt
+  * osh>sort < in.txt
 * Communication via a Pipe
- * osh>ls -l | less
+  * osh>ls -l | less
 
 3) Ghi chú:
 Nếu shell xuất hiện osh>osh> thì vẫn cứ nhập lệnh và chạy bình thường, đây là lỗi hiện thị và nhóm đang cố gắng khắc phục.
