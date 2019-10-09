@@ -25,5 +25,5 @@ Nếu shell xuất hiện osh>osh> thì vẫn cứ nhập lệnh và chạy bìn
 
 4) Thành viên nhóm:
 * 1712500 Trần Phúc Quang Huy
+* 1712528 Ngô Trường Khiêm
 * 1712555 Cháu Vĩnh Lập
-* 1712582 Ngô Trường Khiêm
