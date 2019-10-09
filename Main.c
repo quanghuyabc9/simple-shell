@@ -17,8 +17,8 @@ int main(void)
     setNULL(args);
 
     int should_run=1;
-    int ret;
-    char *history_buffer=NULL;
+    int ret;// a variable which is used for saving return value
+    char *history_buffer=NULL;// a pointer is used for save command in history
 
     while(should_run)
     {
@@ -27,7 +27,7 @@ int main(void)
 
         char *line= (char*)malloc((MAX_LINE+1)*sizeof(char));
 
-        ret = scanf("%[^\n]", line);
+        ret = scanf("%[^\n]", line); // read user's input
 
         if(ret < 1)
         {
@@ -43,14 +43,17 @@ int main(void)
 
         char *line_ptr = line;
 
-        while(*line_ptr==' '|| *line_ptr=='\t')
+        while(*line_ptr==' '|| *line_ptr=='\t')// skip space(' ') or tab ('\t')
             line_ptr++;
 
+        //when the user enters exit at the prompt,this program will set should_run to 0 and terminate.
         if(strstr(line_ptr, "exit"))
         {
             should_run=0;
             continue;
         }
+
+        // history feature
         if(line_ptr[0]=='!' && line_ptr[1]=='!')
         {
             if(history_buffer==NULL)
@@ -75,6 +78,7 @@ int main(void)
             strcpy(history_buffer,line_ptr);
         };
 
+        // The process of shell
         int i=0;
 
         while(*line_ptr != '\0')
@@ -124,10 +128,10 @@ int main(void)
         }
         else if(pid==0)
         {
-
+            //input modification, redirecting input
             if(i_modification)
             {
-                if(!waiting_for_the_child)
+                if(!waiting_for_the_child)// if it have & at the end of cmd line
                 {
                     strcpy(args[i-3],args[i-2]);
                     free(args[i-2]);
@@ -147,11 +151,12 @@ int main(void)
                     return 1;
                 }
             }
+            // ouput modification, redirecting output
             else if(o_modification)
             {
                 char*filename;
 
-                if(!waiting_for_the_child)
+                if(!waiting_for_the_child)// if it have & at the end of cmd line
                 {
                     filename=(char*)malloc(strlen(args[i-2])*sizeof(char));
                     strcpy(filename, args[i-2]);
@@ -181,6 +186,7 @@ int main(void)
                     return 1;
                 }
             }
+            //input, ouput with pipe, communication via a pipe
             else if(io_pipe)
             {
                 int index;
@@ -194,10 +200,10 @@ int main(void)
                     }
                 }
 
-                char *argsFirstCmd[MAX_LINE/2+1];
+                char *argsFirstCmd[MAX_LINE/2+1];//first command (command before '|')
                 setNULL(argsFirstCmd);
                 int ifcmd=0;
-                char *argsSecondCmd[MAX_LINE/2+1];
+                char *argsSecondCmd[MAX_LINE/2+1];// second command (command after '|')
                 setNULL(argsSecondCmd);
                 int iscmd=0;
                 for(int j=0; j< MAX_LINE/2 +1 && args[j] != NULL && args[j][0] !='&'; j++)
@@ -249,9 +255,10 @@ int main(void)
                     waitpid(-1, NULL, 0);
                 }
             }
+            //normal command
             else
             {
-                if(!waiting_for_the_child)
+                if(!waiting_for_the_child) // if it have & at the end of cmd line
                 {
                     free(args[i-1]);
                     args[i-1]= NULL;
@@ -279,6 +286,7 @@ int main(void)
     }
     return 0;
 }
+
 
 void setNULL(char** args)
 {
