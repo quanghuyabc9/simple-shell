@@ -9,3 +9,8 @@ B5: Gõ tiếp lệnh trên terminal: ./SimpleShell
 
 2) Ghi chú:
 Nếu shell xuất hiện osh>osh> thì vẫn cứ nhập lệnh và chạy bình thường, đây là lỗi hiện thị và nhóm đang cố gắng khắc phục.
+
+3) Thành viên nhóm:
+1712500 Trần Phúc Quang Huy
+1712555 Cháu Vĩnh Lập
+??????? ????Khiêm
