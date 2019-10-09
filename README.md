@@ -24,6 +24,6 @@ VD: osh> !!
 Nếu shell xuất hiện osh>osh> thì vẫn cứ nhập lệnh và chạy bình thường, đây là lỗi hiện thị và nhóm đang cố gắng khắc phục.
 
 4) Thành viên nhóm:
-1712500 Trần Phúc Quang Huy
-1712555 Cháu Vĩnh Lập
-1712582 Ngô Trường Khiêm
+* 1712500 Trần Phúc Quang Huy
+* 1712555 Cháu Vĩnh Lập
+* 1712582 Ngô Trường Khiêm
